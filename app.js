@@ -12,15 +12,13 @@ function getWeatherData(){
     fetch(API)
         .then(data => data.json())
         .then(data => {
-            let temp = Math.round(data.main.temp);
-            let feelsLike = Math.round(data.main.feels_like);
-            let humidity = Math.round(data.main.humidity);
+            let temp = Math.round(data.main.temp);                        
             let sunrise = data.sys.sunrise;
             let sunset = data.sys.sunset;            
             let weatherIcon = data.weather[0].icon;            
             
             displayWeatherImage(weatherIcon);            
-            displayWeatherText(temp, feelsLike, humidity, sunrise, sunset);
+            displayWeatherText(temp, sunrise, sunset);
         })
 }
 
@@ -36,16 +34,12 @@ function displayWeatherImage(src) {
 
 
 //Fill out weather text on the page with the details from the API response
-function displayWeatherText(temp, feelsLike, humidity, sunrise, sunset) {
-    let tempSpan = document.querySelector('#temp');
-    let feelsLikeSpan = document.querySelector('#feelsLike');
-    let humiditySpan = document.querySelector('#humidity');
+function displayWeatherText(temp, sunrise, sunset) {
+    let tempSpan = document.querySelector('#temp');        
     let sunriseSpan = document.querySelector('#sunrise');
     let sunsetSpan = document.querySelector('#sunset');
 
-    tempSpan.textContent = temp;
-    feelsLikeSpan.textContent = feelsLike;
-    humiditySpan.textContent = humidity;
+    tempSpan.textContent = temp;        
     sunriseSpan.textContent = convertTime(sunrise);
     sunsetSpan.textContent = convertTime(sunset);
 }
@@ -62,4 +56,33 @@ function convertTime(unixTime) {
 }
 
 
+//Display's the current time
+function displayTime(){
+    let now = new Date();    
+    let timeGreet = '';
+    let timeSpan = document.querySelector('#time');
+    let timeGreetSpan = document.querySelector('#timeGreet');
+    let hour = '';
+    let minute = '';
+
+    if (now.getHours() < 12) {
+        hour = `${now.getHours()}`;
+        timeGreet = 'Good morning';
+    } else {
+        hour = `${now.getHours()-12}`;
+        timeGreet = 'Good afternoon';
+    }    
+
+    if (now.getMinutes() < 10) {
+        minute = `0${now.getMinutes()}`
+    } else {
+        minute = now.getMinutes()
+    }  
+
+    timeSpan.textContent = `${hour}:${minute}`;
+    timeGreetSpan.textContent = timeGreet;
+}
+
+
 getWeatherData();
+displayTime();
