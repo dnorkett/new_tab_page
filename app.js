@@ -48,7 +48,7 @@ function displayWeatherText(temp, sunrise, sunset) {
 //Convert unix time to regular time
 function convertTime(unixTime) {        
     let dateObj = new Date(unixTime * 1000);
-    if (dateObj.getHours() < 12) {
+    if (dateObj.getHours() < 13) {
         return `${dateObj.getHours()}:${dateObj.getMinutes()}am`
     } else {
         return `${dateObj.getHours()-12}:${dateObj.getMinutes()}pm`
@@ -65,7 +65,7 @@ function displayTime(){
     let hour = '';
     let minute = '';
 
-    if (now.getHours() < 12) {
+    if (now.getHours() < 13) {
         hour = `${now.getHours()}`;
         timeGreet = 'Good morning';
     } else {
@@ -86,3 +86,8 @@ function displayTime(){
 
 getWeatherData();
 displayTime();
+
+window.setInterval(function(){
+    displayTime();
+  }, 5000);
+
