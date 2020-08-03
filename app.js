@@ -59,13 +59,17 @@ function convertTime(unixTime) {
 //Display's the current time
 function displayTime(){
     let now = new Date();    
+    now.setHours(0);
     let timeGreet = '';
     let timeSpan = document.querySelector('#time');
     let timeGreetSpan = document.querySelector('#timeGreet');
     let hour = '';
     let minute = '';
 
-    if (now.getHours() < 13) {
+    if(now.getHours() == 0) {
+        hour = `12`;
+        timeGreet = 'Good morning';
+    } else if (now.getHours() < 13) {
         hour = `${now.getHours()}`;
         timeGreet = 'Good morning';
     } else {
@@ -81,6 +85,7 @@ function displayTime(){
 
     timeSpan.textContent = `${hour}:${minute}`;
     timeGreetSpan.textContent = timeGreet;
+
 }
 
 
@@ -90,4 +95,3 @@ displayTime();
 window.setInterval(function(){
     displayTime();
   }, 5000);
-
