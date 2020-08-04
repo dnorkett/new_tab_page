@@ -58,8 +58,7 @@ function convertTime(unixTime) {
 
 //Display's the current time
 function displayTime(){
-    let now = new Date();    
-    now.setHours(0);
+    let now = new Date();        
     let timeGreet = '';
     let timeSpan = document.querySelector('#time');
     let timeGreetSpan = document.querySelector('#timeGreet');
